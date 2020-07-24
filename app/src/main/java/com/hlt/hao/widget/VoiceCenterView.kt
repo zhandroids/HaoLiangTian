@@ -201,16 +201,25 @@ class VoiceCenterView : View, ViewPager.OnPageChangeListener {
         get() {
             return Paint().apply {
                 color = Color.parseColor("#555555")
-                style = Paint.Style.FILL
+                style = Paint.Style.FILL_AND_STROKE
                 isAntiAlias = true
                 textSize = AutoSizeUtils.sp2px(context, 14f).toFloat()
                 textAlign = Paint.Align.CENTER
-                typeface = if (currentPosition == 0) {
-                    Typeface.DEFAULT_BOLD
+//                typeface = if (currentPosition == 0) {
+//                    Typeface.DEFAULT_BOLD
+//                } else {
+//                    Typeface.DEFAULT
+//                }
+                strokeWidth = if (currentOffset > 0 && currentOffset < 1) {
+                    2 * (1 - currentOffset)
                 } else {
-                    Typeface.DEFAULT
+                    if (currentPosition == 0) {
+                        2f
+                    } else {
+                        0f
+                    }
                 }
-                strokeWidth = 3f
+
 
             }
         }
@@ -272,14 +281,23 @@ class VoiceCenterView : View, ViewPager.OnPageChangeListener {
     private val rightBottomTextPaint: Paint
         get() {
             return Paint().apply {
-                color = Color.parseColor("#808080")
-                style = Paint.Style.FILL
+                color = Color.parseColor("#555555")
+                style = Paint.Style.FILL_AND_STROKE
                 textSize = AutoSizeUtils.sp2px(context, 14f).toFloat()
                 textAlign = Paint.Align.CENTER
-                typeface = if (currentPosition == 0) {
-                    Typeface.DEFAULT
+//                typeface = if (currentPosition == 0) {
+//                    Typeface.DEFAULT
+//                } else {
+//                    Typeface.DEFAULT_BOLD
+//                }
+                strokeWidth = if (currentOffset > 0 && currentOffset < 1) {
+                    2 * currentOffset
                 } else {
-                    Typeface.DEFAULT_BOLD
+                    if (currentPosition == 0) {
+                        0f
+                    } else {
+                        2f
+                    }
                 }
             }
         }
@@ -333,12 +351,12 @@ class VoiceCenterView : View, ViewPager.OnPageChangeListener {
         if (state == ViewPager.SCROLL_STATE_IDLE) {
             if (currentPosition == 1) {
                 leftTopTextPaint.color = Color.TRANSPARENT
-                leftBottomTextPaint.typeface = Typeface.DEFAULT
-                rightBottomTextPaint.typeface = Typeface.DEFAULT_BOLD
+//                leftBottomTextPaint.typeface = Typeface.DEFAULT
+//                rightBottomTextPaint.typeface = Typeface.DEFAULT_BOLD
             } else if (currentPosition == 0) {
                 leftTopTextPaint.color = Color.parseColor("#808080")
-                leftBottomTextPaint.typeface = Typeface.DEFAULT_BOLD
-                rightBottomTextPaint.typeface = Typeface.DEFAULT
+//                leftBottomTextPaint.typeface = Typeface.DEFAULT_BOLD
+//                rightBottomTextPaint.typeface = Typeface.DEFAULT
             }
             invalidate()
         }
