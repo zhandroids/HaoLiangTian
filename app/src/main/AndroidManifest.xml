@@ -13,8 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".VoiceSwitchActivity">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +22,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".list.GrainListActivity"/>
+        <activity android:name="com.hlt.hao.grain.list.GrainListActivity"/>
+        <activity android:name="com.hlt.hao.grain.add.AddGrainActivity"/>
+        <activity android:name=".company.CompanyListActivity"/>
+        <activity android:name=".HomeActivity"/>
     </application>
 
 </manifest>

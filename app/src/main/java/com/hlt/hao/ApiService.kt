@@ -1,7 +1,10 @@
 package com.hlt.hao
 
-import com.hlt.hao.list.GrainListResponse
+import com.hlt.hao.company.CompanyListResponse
+import com.hlt.hao.grain.add.AddGrainResponse
+import com.hlt.hao.grain.list.GrainListResponse
 import com.hlt.hao.login.LoginResponse
+import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -19,31 +22,54 @@ interface ApiService {
     @POST("yhjbxx/loginAjax/")
     suspend fun userLogin(@Query("yhm") userName: String,
                           @Query("yhmm") password: String,
-                          @Query("rememberMe") rememberMe: String):LoginResponse
+                          @Query("rememberMe") rememberMe: String): LoginResponse
 
     /**
      * 粮食订单发布
      */
     @POST("lsddfb/list/")
-    suspend fun grainList(@Query("pageNo")pageNo: String, @Query("pageSize")pageSize: String):GrainListResponse
+    suspend fun grainList(@Query("pageNo") pageNo: String, @Query("pageSize") pageSize: String): GrainListResponse
 
     /**
      * 增加订单
+     * @param[dwmc] 单位名称
+     * @param[lspz] 粮食品种
+     * @param[lszlyq]粮食质量要求
+     * @param[zzqy] 种植区域
+     * @param[zzzq] 种植周期
+     * @param[ddds] 订单吨数
+     * @param[ddyxq] 订单有效期
+     * @param[thsj] 申请时间
      */
-    @POST("yhjbxx/loginAjax/")
-    suspend fun addOrder()
+    @POST("lsddfb/insert")
+    suspend fun addOrder(@Query("dwmc") dwmc: String,
+                         @Query("lspz") lspz: String,
+                         @Query("lszlyq") lszlyq: String,
+                         @Query("zzqy") zzqy: String,
+                         @Query("zzzq") zzzq: String,
+                         @Query("ddds") ddds: String,
+                         @Query("ddyxq") ddyxq: String,
+                         @Query("tjsj") thsj: String,
+                         @Query("fhzt") fhzt: String = "0"
+    ): AddGrainResponse
 
     /**
      * 删除订单
      */
-    @POST("yhjbxx/loginAjax/")
-    suspend fun deleteOrder()
+    @POST("lsddfb/delete")
+    suspend fun deleteOrder(@Query("id") orderId: String):AddGrainResponse
 
     /**
      * 修改订单
      */
     @POST("yhjbxx/loginAjax/")
     suspend fun modifyOrder()
+
+    /**
+     * 获取单位列表
+     */
+    @GET("/dwjbxx/listAll")
+    suspend fun getCompanyList(): CompanyListResponse
 
 
 }

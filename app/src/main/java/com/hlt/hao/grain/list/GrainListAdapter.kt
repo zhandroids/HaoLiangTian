@@ -1,6 +1,7 @@
-package com.hlt.hao.list
+package com.hlt.hao.grain.list
 
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.hlt.hao.R
 
@@ -10,7 +11,7 @@ import com.hlt.hao.R
  *desc
  */
 class GrainListAdapter(dataList: MutableList<GrainListData>)
-    : BaseQuickAdapter<GrainListData, BaseViewHolder>(R.layout.item_grain_list, data = dataList) {
+    : BaseQuickAdapter<GrainListData, BaseViewHolder>(R.layout.item_grain_list, data = dataList) ,LoadMoreModule{
 
     override fun convert(holder: BaseViewHolder, item: GrainListData) {
 
@@ -28,8 +29,7 @@ class GrainListAdapter(dataList: MutableList<GrainListData>)
         holder.setText(R.id.sqrq,"申请日期：${item.tjsj}")
         holder.setText(R.id.tjdw,"提交单位：${item.jsdwmc}")
 
-
-
+       addChildClickViewIds(R.id.itemDelete)
     }
 
 

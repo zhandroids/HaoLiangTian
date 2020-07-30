@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f7f7f7"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="5dp"
+            app:srcCompat="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="添加订单"
+            android:textColor="#07903A"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_item"
+            android:orientation="vertical"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+
+            <TextView
+                android:id="@+id/fbdw"
+                style="@style/EditTextStyle"
+                android:gravity="center_vertical"
+                android:text="请选择发布单位" />
+
+            <EditText
+                android:id="@+id/lspz"
+                style="@style/EditTextStyle"
+                android:hint="请输入粮食品种" />
+
+            <EditText
+                android:id="@+id/djyq"
+                style="@style/EditTextStyle"
+                android:hint="请输入质量等级要求" />
+
+            <EditText
+                android:id="@+id/zzqy"
+                style="@style/EditTextStyle"
+                android:hint="请输入种植区域" />
+
+
+            <EditText
+                android:id="@+id/zzzq"
+                style="@style/EditTextStyle"
+                android:hint="请输入种植周期" />
+
+            <EditText
+                android:id="@+id/ddds"
+                style="@style/EditTextStyle"
+                android:hint="请输入订单吨数"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/ddyxq"
+                style="@style/EditTextStyle"
+                android:hint="请输入订单有效期（天）" />
+
+            <TextView
+                android:id="@+id/sqrq"
+                style="@style/EditTextStyle"
+                android:gravity="center_vertical"
+                android:text="请选择申请日期" />
+
+            <TextView
+                android:id="@+id/btnAdd"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/bg_login_btn"
+                android:gravity="center"
+                android:text="添加"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

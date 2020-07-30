@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f7f7f7"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -23,37 +22,33 @@
             android:layout_height="48dp"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="订单列表"
+            android:text="主页"
             android:textColor="#07903A"
             android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/add"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="添加"
-            android:textColor="#07903A"
-            android:textSize="16sp" />
-
-
     </RelativeLayout>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/homeAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_home1"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:text="添加订单"
+        android:textColor="#FFFFFF"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvGrainList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <TextView
+        android:id="@+id/homeList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_home2"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:text="订单列表"
+        android:textColor="#FFFFFF"/>
 
 
 </LinearLayout>

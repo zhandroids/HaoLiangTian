@@ -1,16 +1,13 @@
 package com.hlt.hao.login
 
 import android.content.Intent
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.hlt.hao.ApiService
 import com.hlt.hao.BaseActivity
+import com.hlt.hao.HomeActivity
 import com.hlt.hao.R
-import com.hlt.hao.http.RetrofitClient
-import com.hlt.hao.list.GrainListActivity
+import com.hlt.hao.grain.list.GrainListActivity
 import kotlinx.android.synthetic.main.activty_login.*
 
 /**
@@ -36,7 +33,8 @@ class LoginActivity :BaseActivity() {
                     if (it.isState) {
                         if (it.data.success) {
                             Toast.makeText(applicationContext, "登录成功", Toast.LENGTH_SHORT).show()
-                            startActivity(Intent(applicationContext,GrainListActivity::class.java))
+                            startActivity(Intent(applicationContext,HomeActivity::class.java))
+                            finish()
                         } else {
                             Toast.makeText(applicationContext, "登陆失败${it.data.message}", Toast.LENGTH_SHORT).show()
                         }

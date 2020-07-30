@@ -1,4 +1,4 @@
-package com.hlt.hao.list
+package com.hlt.hao.grain.list
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -8,6 +8,7 @@ import com.hlt.hao.ApiService
 import com.hlt.hao.http.RetrofitClient
 import kotlinx.coroutines.launch
 import com.google.gson.annotations.SerializedName
+import com.hlt.hao.grain.add.AddGrainResponse
 import com.hlt.hao.http.LiveDataResponse
 import kotlinx.coroutines.CoroutineExceptionHandler
 
@@ -20,6 +21,7 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 class GrainListViewModel : ViewModel() {
 
     private val liveData: MutableLiveData<LiveDataResponse<GrainListResponse>> by lazy { MutableLiveData<LiveDataResponse<GrainListResponse>>() }
+    private val liveDataDelete: MutableLiveData<LiveDataResponse<AddGrainResponse>> by lazy { MutableLiveData<LiveDataResponse<AddGrainResponse>>() }
 
     fun getGrainList(pageNo:String,pageSize:String): MutableLiveData<LiveDataResponse<GrainListResponse>> {
         val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
@@ -28,10 +30,7 @@ class GrainListViewModel : ViewModel() {
             val liveDataResponse = LiveDataResponse<GrainListResponse>()
             liveDataResponse.isState = false
             liveData.value = liveDataResponse
-
         }
-
-
         viewModelScope.launch(context = exceptionHandler) {
             val grainList
                     = RetrofitClient.getApiService(ApiService::class.java).grainList(pageNo,pageSize)
@@ -39,10 +38,27 @@ class GrainListViewModel : ViewModel() {
             liveDataResponse.isState = true
             liveDataResponse.data = grainList
             liveData.value = liveDataResponse
-
         }
-
         return liveData
+    }
+
+    fun deleteOrder(id:String): MutableLiveData<LiveDataResponse<AddGrainResponse>> {
+        val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+
+            Log.e("asker","异常信息${throwable.localizedMessage}")
+            val liveDataResponse = LiveDataResponse<AddGrainResponse>()
+            liveDataResponse.isState = false
+            liveDataDelete.value = liveDataResponse
+        }
+        viewModelScope.launch(context = exceptionHandler) {
+            val grainList
+                    = RetrofitClient.getApiService(ApiService::class.java).deleteOrder(id)
+            val liveDataResponse = LiveDataResponse<AddGrainResponse>()
+            liveDataResponse.isState = true
+            liveDataResponse.data = grainList
+            liveDataDelete.value = liveDataResponse
+        }
+        return liveDataDelete
     }
 
 }
