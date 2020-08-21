@@ -29,6 +29,7 @@
             android:textColor="#07903A"
             android:textSize="18sp" />
 
+
     </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -88,8 +89,9 @@
                 android:gravity="center_vertical"
                 android:text="请选择申请日期" />
 
+
             <TextView
-                android:id="@+id/btnAdd"
+                android:id="@+id/btnAddImage"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginStart="30dp"
@@ -97,9 +99,28 @@
                 android:layout_marginEnd="30dp"
                 android:background="@drawable/bg_login_btn"
                 android:gravity="center"
+                android:text="添加照片"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/btnAdd"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/bg_login_btn"
+                android:gravity="center"
                 android:text="添加"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/grain_image"
+                android:layout_width="300dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="200dp"/>
 
         </LinearLayout>
 
