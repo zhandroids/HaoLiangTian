@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.hlt.hao.ApiService
 import com.hlt.hao.http.LiveDataResponse
 import com.hlt.hao.http.RetrofitClient
-import com.hlt.hao.utils.MD5Encode
 import kotlinx.coroutines.*
+import okhttp3.MultipartBody
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -18,6 +18,7 @@ import kotlin.coroutines.CoroutineContext
 class AddGrainViewModel : ViewModel() {
 
     private val loginResponseLiveData: MutableLiveData<LiveDataResponse<AddGrainResponse>> by lazy { MutableLiveData<LiveDataResponse<AddGrainResponse>>() }
+    private val uploadResponseLiveData: MutableLiveData<LiveDataResponse<UploadResponse>> by lazy { MutableLiveData<LiveDataResponse<UploadResponse>>() }
 
 
     /**
@@ -66,5 +67,24 @@ class AddGrainViewModel : ViewModel() {
             loginResponseLiveData.value = liveDataResponse
         }
         return loginResponseLiveData
+    }
+
+    fun uploadImage(refId:String,tab:String,files: MutableList<MultipartBody.Part>): MutableLiveData<LiveDataResponse<UploadResponse>>{
+        val coroutineExceptionHandler = CoroutineExceptionHandler { coroutineContext: CoroutineContext, throwable: Throwable ->
+            val liveDataResponse = LiveDataResponse<UploadResponse>()
+            liveDataResponse.isState = false
+            uploadResponseLiveData.value = liveDataResponse
+        }
+        viewModelScope.launch(context = coroutineExceptionHandler) {
+
+            val response = RetrofitClient.getApiService(ApiService::class.java).uploadImage(refId, tab, files)
+
+            val liveDataResponse = LiveDataResponse<UploadResponse>()
+            liveDataResponse.isState = true
+            liveDataResponse.data = response
+
+            uploadResponseLiveData.value = liveDataResponse
+        }
+        return uploadResponseLiveData
     }
 }

@@ -2,11 +2,11 @@ package com.hlt.hao
 
 import com.hlt.hao.company.CompanyListResponse
 import com.hlt.hao.grain.add.AddGrainResponse
+import com.hlt.hao.grain.add.UploadResponse
 import com.hlt.hao.grain.list.GrainListResponse
 import com.hlt.hao.login.LoginResponse
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import okhttp3.MultipartBody
+import retrofit2.http.*
 
 /**
  *create by zhangzhuo
@@ -57,7 +57,7 @@ interface ApiService {
      * 删除订单
      */
     @POST("lsddfb/delete")
-    suspend fun deleteOrder(@Query("id") orderId: String):AddGrainResponse
+    suspend fun deleteOrder(@Query("id") orderId: String): AddGrainResponse
 
     /**
      * 修改订单
@@ -70,6 +70,24 @@ interface ApiService {
      */
     @GET("/dwjbxx/listAll")
     suspend fun getCompanyList(): CompanyListResponse
+
+    /**
+     * 上传图片
+     */
+    @POST("/fileUp")
+    @Multipart
+    suspend fun uploadImage(@Query("refId") refId: String,
+                            @Query("tab") tab: String,
+                            @Part files: List<MultipartBody.Part>): UploadResponse
+
+    /**
+     * 获取一个图片
+     */
+    @GET("/filesFind")
+    suspend fun getSingleImage(@Query("refId") refId: String,
+                               @Query("tab") tab: String,
+                               @Query("type") type: String = "photo"
+    ): UploadResponse
 
 
 }

@@ -22,6 +22,7 @@ class GrainListViewModel : ViewModel() {
 
     private val liveData: MutableLiveData<LiveDataResponse<GrainListResponse>> by lazy { MutableLiveData<LiveDataResponse<GrainListResponse>>() }
     private val liveDataDelete: MutableLiveData<LiveDataResponse<AddGrainResponse>> by lazy { MutableLiveData<LiveDataResponse<AddGrainResponse>>() }
+    private val liveSingleImage: MutableLiveData<LiveDataResponse<AddGrainResponse>> by lazy { MutableLiveData<LiveDataResponse<AddGrainResponse>>() }
 
     fun getGrainList(pageNo:String,pageSize:String): MutableLiveData<LiveDataResponse<GrainListResponse>> {
         val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
@@ -57,6 +58,25 @@ class GrainListViewModel : ViewModel() {
             liveDataResponse.isState = true
             liveDataResponse.data = grainList
             liveDataDelete.value = liveDataResponse
+        }
+        return liveDataDelete
+    }
+
+    fun getSingleImage(refId:String): MutableLiveData<LiveDataResponse<AddGrainResponse>> {
+        val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+
+            Log.e("asker","异常信息${throwable.localizedMessage}")
+            val liveDataResponse = LiveDataResponse<AddGrainResponse>()
+            liveDataResponse.isState = false
+            liveDataDelete.value = liveDataResponse
+        }
+        viewModelScope.launch(context = exceptionHandler) {
+            val grainList
+                    = RetrofitClient.getApiService(ApiService::class.java).getSingleImage(refId,"lsddfb")
+            val liveDataResponse = LiveDataResponse<AddGrainResponse>()
+            liveDataResponse.isState = true
+//            liveDataResponse.data = grainList
+//            liveDataDelete.value = liveDataResponse
         }
         return liveDataDelete
     }

@@ -12,3 +12,9 @@ data class AddGrainResponse(
         var data: Any
 
 )
+
+data class UploadResponse(
+        var success:Boolean,
+        var message:String?,
+        var code: String?
+)
