@@ -1,5 +1,6 @@
 package com.hlt.hao.http
 
+import com.hlt.hao.AppConfig
 import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -24,7 +25,7 @@ class RetrofitUtil {
                     .build()
 
             return Retrofit.Builder()
-                    .baseUrl("http://139.9.137.186:8888/")
+                    .baseUrl(AppConfig.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(okHttpClient)
                     .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))

@@ -1,12 +1,17 @@
 package com.hlt.hao.grain.list
 
 import android.content.Intent
+import android.media.Image
 import android.util.Log
+import android.view.LayoutInflater
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.hlt.hao.AppConfig
 import com.hlt.hao.BaseActivity
 import com.hlt.hao.R
 import com.hlt.hao.company.CompanyListActivity
@@ -90,11 +95,18 @@ class GrainListActivity : BaseActivity() {
                 //查看图片
                 viewModel.getSingleImage(dataList[position].id.toString()).observe(this, Observer {
                     if (it.isState) {
-                        if (it.data.success) {
-                            Toast.makeText(applicationContext, "获取", Toast.LENGTH_SHORT).show()
-                            getData()
+                        if (it.data.success != null && it.data.success == true) {
+                            val datas = it.data.data
+                            if (!datas.isNullOrEmpty()) {
+                                datas[0].url?.let {
+                                    val fullUrl = AppConfig.BASE_URL.plus(it)
+                                    showDialog(fullUrl)
+                                }
+                            } else {
+                                Toast.makeText(applicationContext, "暂无图片", Toast.LENGTH_SHORT).show()
+                            }
                         } else {
-                            Toast.makeText(applicationContext, "失败", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(applicationContext, "暂无图片", Toast.LENGTH_SHORT).show()
 
                         }
                     }
@@ -176,5 +188,17 @@ class GrainListActivity : BaseActivity() {
     }
 
     override fun getLayoutId() = R.layout.activity_grain_list
+
+    fun showDialog(imageUrl:String){
+        Log.e("asker","展示图片")
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_show_big_image,null);
+        val imageView = dialogView.findViewById<ImageView>(R.id.dialogImageGrain)
+        Glide.with(this).load(imageUrl).into(imageView)
+        val builder = AlertDialog.Builder(this@GrainListActivity)
+        builder.setView(dialogView)
+        builder.setTitle("订单图片")
+        builder.create().show()
+
+    }
 
 }

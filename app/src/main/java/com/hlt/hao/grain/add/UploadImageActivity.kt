@@ -125,7 +125,7 @@ class UploadImageActivity : BaseActivity() {
 
             //上传
             val requestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-            val image: MultipartBody.Part = createFormData("picture", file.name, requestBody)
+            val image: MultipartBody.Part = createFormData("file", file.name, requestBody)
 
             files.add(image)
         }

@@ -77,7 +77,7 @@ class AddGrainViewModel : ViewModel() {
         }
         viewModelScope.launch(context = coroutineExceptionHandler) {
 
-            val response = RetrofitClient.getApiService(ApiService::class.java).uploadImage(refId, tab, files)
+            val response = RetrofitClient.getApiService(ApiService::class.java).uploadImage(refId = refId, tab=tab,file =  files)
 
             val liveDataResponse = LiveDataResponse<UploadResponse>()
             liveDataResponse.isState = true

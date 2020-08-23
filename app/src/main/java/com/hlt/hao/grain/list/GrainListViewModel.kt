@@ -9,7 +9,9 @@ import com.hlt.hao.http.RetrofitClient
 import kotlinx.coroutines.launch
 import com.google.gson.annotations.SerializedName
 import com.hlt.hao.grain.add.AddGrainResponse
+import com.hlt.hao.grain.add.GrainImageResponse
 import com.hlt.hao.http.LiveDataResponse
+import com.hlt.hao.utils.SingleLiveEvent
 import kotlinx.coroutines.CoroutineExceptionHandler
 
 
@@ -22,7 +24,7 @@ class GrainListViewModel : ViewModel() {
 
     private val liveData: MutableLiveData<LiveDataResponse<GrainListResponse>> by lazy { MutableLiveData<LiveDataResponse<GrainListResponse>>() }
     private val liveDataDelete: MutableLiveData<LiveDataResponse<AddGrainResponse>> by lazy { MutableLiveData<LiveDataResponse<AddGrainResponse>>() }
-    private val liveSingleImage: MutableLiveData<LiveDataResponse<AddGrainResponse>> by lazy { MutableLiveData<LiveDataResponse<AddGrainResponse>>() }
+    private val liveSingleImage: SingleLiveEvent<LiveDataResponse<GrainImageResponse>> by lazy { SingleLiveEvent<LiveDataResponse<GrainImageResponse>>() }
 
     fun getGrainList(pageNo:String,pageSize:String): MutableLiveData<LiveDataResponse<GrainListResponse>> {
         val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
@@ -62,23 +64,23 @@ class GrainListViewModel : ViewModel() {
         return liveDataDelete
     }
 
-    fun getSingleImage(refId:String): MutableLiveData<LiveDataResponse<AddGrainResponse>> {
+    fun getSingleImage(refId:String): SingleLiveEvent<LiveDataResponse<GrainImageResponse>> {
         val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
 
             Log.e("asker","异常信息${throwable.localizedMessage}")
-            val liveDataResponse = LiveDataResponse<AddGrainResponse>()
+            val liveDataResponse = LiveDataResponse<GrainImageResponse>()
             liveDataResponse.isState = false
-            liveDataDelete.value = liveDataResponse
+            liveSingleImage.value = liveDataResponse
         }
         viewModelScope.launch(context = exceptionHandler) {
             val grainList
                     = RetrofitClient.getApiService(ApiService::class.java).getSingleImage(refId,"lsddfb")
-            val liveDataResponse = LiveDataResponse<AddGrainResponse>()
+            val liveDataResponse = LiveDataResponse<GrainImageResponse>()
             liveDataResponse.isState = true
-//            liveDataResponse.data = grainList
-//            liveDataDelete.value = liveDataResponse
+            liveDataResponse.data = grainList
+            liveSingleImage.value = liveDataResponse
         }
-        return liveDataDelete
+        return liveSingleImage
     }
 
 }

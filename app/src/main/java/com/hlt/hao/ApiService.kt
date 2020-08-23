@@ -2,6 +2,7 @@ package com.hlt.hao
 
 import com.hlt.hao.company.CompanyListResponse
 import com.hlt.hao.grain.add.AddGrainResponse
+import com.hlt.hao.grain.add.GrainImageResponse
 import com.hlt.hao.grain.add.UploadResponse
 import com.hlt.hao.grain.list.GrainListResponse
 import com.hlt.hao.login.LoginResponse
@@ -78,7 +79,8 @@ interface ApiService {
     @Multipart
     suspend fun uploadImage(@Query("refId") refId: String,
                             @Query("tab") tab: String,
-                            @Part files: List<MultipartBody.Part>): UploadResponse
+                            @Query("type") type: String = "photo",
+                            @Part file: List<MultipartBody.Part>): UploadResponse
 
     /**
      * 获取一个图片
@@ -87,7 +89,7 @@ interface ApiService {
     suspend fun getSingleImage(@Query("refId") refId: String,
                                @Query("tab") tab: String,
                                @Query("type") type: String = "photo"
-    ): UploadResponse
+    ): GrainImageResponse
 
 
 }
