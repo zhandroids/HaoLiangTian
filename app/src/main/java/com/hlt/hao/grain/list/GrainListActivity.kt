@@ -2,6 +2,7 @@ package com.hlt.hao.grain.list
 
 import android.content.Intent
 import android.media.Image
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ImageView
@@ -98,10 +99,14 @@ class GrainListActivity : BaseActivity() {
                         if (it.data.success != null && it.data.success == true) {
                             val datas = it.data.data
                             if (!datas.isNullOrEmpty()) {
-                                datas[0].url?.let {
-                                    val fullUrl = AppConfig.BASE_URL.plus(it)
-                                    showDialog(fullUrl)
-                                }
+                                val intent = Intent(applicationContext,GrainImageViewActivity::class.java)
+                                intent.putParcelableArrayListExtra("images",datas)
+                                startActivity(intent)
+
+//                                datas[0].url?.let {
+//                                    val fullUrl = AppConfig.BASE_URL.plus(it)
+//                                    showDialog(fullUrl)
+//                                }
                             } else {
                                 Toast.makeText(applicationContext, "暂无图片", Toast.LENGTH_SHORT).show()
                             }
@@ -117,39 +122,6 @@ class GrainListActivity : BaseActivity() {
         add.setOnClickListener {
             startActivity(Intent(applicationContext, AddGrainActivity::class.java))
         }
-    }
-
-    /**
-     * 展示编辑选项
-     */
-    fun showEditItemDialog() {
-
-        val dialogItems = arrayOf("删除", "修改")
-
-        val dialog: AlertDialog.Builder = AlertDialog.Builder(this)
-
-        dialog.setTitle("请选择操作")
-
-        dialog.setItems(dialogItems) { dialog, which ->
-
-            when (which) {
-
-                0 -> {
-
-                }
-
-                1 -> {
-
-                }
-
-            }
-
-
-        }
-
-        dialog.create().show()
-
-
     }
 
     fun getData() {
@@ -189,16 +161,16 @@ class GrainListActivity : BaseActivity() {
 
     override fun getLayoutId() = R.layout.activity_grain_list
 
-    fun showDialog(imageUrl:String){
-        Log.e("asker","展示图片")
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_show_big_image,null);
-        val imageView = dialogView.findViewById<ImageView>(R.id.dialogImageGrain)
-        Glide.with(this).load(imageUrl).into(imageView)
-        val builder = AlertDialog.Builder(this@GrainListActivity)
-        builder.setView(dialogView)
-        builder.setTitle("订单图片")
-        builder.create().show()
-
-    }
+//    fun showDialog(imageUrl:String){
+//        Log.e("asker","展示图片")
+//        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_show_big_image,null);
+//        val imageView = dialogView.findViewById<ImageView>(R.id.dialogImageGrain)
+//        Glide.with(this).load(imageUrl).into(imageView)
+//        val builder = AlertDialog.Builder(this@GrainListActivity)
+//        builder.setView(dialogView)
+//        builder.setTitle("订单图片")
+//        builder.create().show()
+//
+//    }
 
 }

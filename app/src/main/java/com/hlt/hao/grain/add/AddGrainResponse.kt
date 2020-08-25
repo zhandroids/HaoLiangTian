@@ -1,5 +1,10 @@
 package com.hlt.hao.grain.add
+import android.annotation.SuppressLint
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
+import java.util.ArrayList
 
 
 /**
@@ -26,7 +31,7 @@ data class GrainImageResponse(
     @SerializedName("code")
     val code: Int?,
     @SerializedName("data")
-    val `data`: List<Data>?,
+    val data: ArrayList<Data>?,
     @SerializedName("message")
     val message: String?,
     @SerializedName("sessMap")
@@ -35,11 +40,13 @@ data class GrainImageResponse(
     val success: Boolean?
 )
 
-data class Data(
+@SuppressLint("ParcelCreator")
+@Parcelize
+public data class Data(
     @SerializedName("ext")
     val ext: String?,
     @SerializedName("height")
-    val height: Any?,
+    val height: String?,
     @SerializedName("id")
     val id: Int?,
     @SerializedName("name")
@@ -57,5 +64,5 @@ data class Data(
     @SerializedName("url")
     val url: String?,
     @SerializedName("width")
-    val width: Any?
-)
+    val width: String?
+):Parcelable

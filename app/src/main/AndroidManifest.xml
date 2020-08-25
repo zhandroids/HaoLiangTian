@@ -31,6 +31,7 @@
         <activity android:name="com.hlt.hao.grain.add.UploadImageActivity"/>
         <activity android:name=".company.CompanyListActivity"/>
         <activity android:name=".HomeActivity"/>
+        <activity android:name=".grain.list.GrainImageViewActivity"/>
 
         <!--添加provider-->
         <provider
